@@ -59,6 +59,4 @@ public class UserConfigController extends BaseController{
             return setResult(false,2000,e.getMessage(),null);
         }
     }
-
-
 }
