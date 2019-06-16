@@ -30,7 +30,6 @@ public class LoginController extends BaseController{
     @Autowired
     private IUserService userService;
 
-
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "用户登录接口" ,  notes="传入登录时js获取到的code，获取openId，去数据库里面查，如果存在则返回用户信息，如果不存在新增用户，返回初始化信息,并把openId放入session中")
