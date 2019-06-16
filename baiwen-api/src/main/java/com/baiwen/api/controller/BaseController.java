@@ -1,6 +1,9 @@
 package com.baiwen.api.controller;
 
+import com.baiwen.api.message.OnlineUser;
 import com.baiwen.api.message.Result;
+import com.baiwen.business.model.User;
+import com.baiwen.common.util.BeanUtils;
 import com.baiwen.common.util.DateUtils;
 import com.baiwen.common.util.JsonUtil;
 import com.baiwen.common.util.MapUtils;
@@ -12,6 +15,8 @@ import org.apache.poi.ss.formula.functions.T;
 import java.util.*;
 
 public class BaseController {
+
+    protected Map<String,OnlineUser> onlineUserMap=new HashMap<String, OnlineUser>();
 
 
     protected String[] language = {"zh", "CN"};
@@ -105,6 +110,17 @@ public class BaseController {
         }
         return hasMap;
     }
+
+    protected void setUserToSession(User user){
+        OnlineUser copy = BeanUtils.copy(user, OnlineUser.class);
+        this.onlineUserMap.put(user.getOpenId(),copy);
+    }
+
+    protected OnlineUser getOnlineUser(String openId){
+        OnlineUser onlineUser = this.onlineUserMap.get(openId);
+        return onlineUser;
+    }
+
 
 
 
