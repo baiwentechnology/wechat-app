@@ -4,8 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.baiwen</groupId>
-	<artifactId>baiwen-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>baiwen-business</artifactId>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 	<parent>
 		<groupId>com.baiwen</groupId>
@@ -13,7 +13,7 @@
 		<version>1.0</version>
 		<relativePath/>
 	</parent>
-	<name>baiwen-service</name>
+	<name>baiwen-business</name>
 
 	<dependencies>
 		<dependency>

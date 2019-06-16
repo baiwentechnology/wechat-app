@@ -1,4 +1,4 @@
-package com.baiwen.api;
+package com.baiwen;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
