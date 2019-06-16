@@ -8,5 +8,9 @@
     <artifactId>wechat-app</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-
+    <modules>
+        <module>baiwen-api</module>
+        <module>baiwen-business</module>
+        <module>baiwen-common</module>
+    </modules>
 </project>
