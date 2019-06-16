@@ -10,6 +10,6 @@
         insert into user_sign  (user_id,signDate) VALUES (#{userId},#{signDate})
     </insert>
     <select id="getSignByUserId" resultType="java.lang.String">
-        select signDate from userSign where userId =#{userId}
+        select signDate from user_sign where user_id =#{userId}
     </select>
 </mapper>

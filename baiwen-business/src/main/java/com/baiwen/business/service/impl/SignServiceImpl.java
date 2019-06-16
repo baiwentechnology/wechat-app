@@ -40,19 +40,27 @@ public class SignServiceImpl implements IsignService {
         HashMap<String, Object> objectObjectHashMap = new HashMap<>();
         objectObjectHashMap.put("userId",userId);
         objectObjectHashMap.put("signDate",new DateTime().toString(DateUtils.YYYYMMDD_W));
-        isignMapper.addUserSign(objectObjectHashMap);
             List<String> signByUserId = isignMapper.getSignByUserId(userId);
+            for (int i = 0; i <signByUserId.size() ; i++) {
+                if (signByUserId.get(i).equals( new DateTime().toString(DateUtils.YYYYMMDD_W))){
+                    jsonObject.put("success",false);
+                    jsonObject.put("message","签到失败,一天内只能签到一次");
+                    return jsonObject;
+                }
+            }
+            isignMapper.addUserSign(objectObjectHashMap);
             jsonObject.put("success",true);
             jsonObject.put("totalDate",signByUserId.size());
 //            获得随机数量的金币或者是水滴
             jsonObject.put("rewardType",1);
             jsonObject.put("rewordCount",1);
+            jsonObject.put("message","签到成功");
+            return jsonObject;
         }catch (Exception e){
             e.printStackTrace();
             jsonObject.put("success",false);
-            jsonObject.put("data","签到失败");
+            jsonObject.put("message","签到失败,请联系管理员");
+            return jsonObject;
         }
-return jsonObject;
-
-        }
+    }
 }

@@ -16,7 +16,7 @@ import java.util.*;
 
 public class BaseController {
 
-    protected Map<String,OnlineUser> onlineUserMap=new HashMap<String, OnlineUser>();
+    protected static Map<String,OnlineUser> onlineUserMap=new HashMap<String, OnlineUser>();
 
 
     protected String[] language = {"zh", "CN"};
@@ -111,13 +111,17 @@ public class BaseController {
         return hasMap;
     }
 
-    protected void setUserToSession(User user){
+    protected void putUserToSession(User user){
         OnlineUser copy = BeanUtils.copy(user, OnlineUser.class);
+        copy.setOnLine(true);
         this.onlineUserMap.put(user.getOpenId(),copy);
     }
 
     protected OnlineUser getOnlineUser(String openId){
         OnlineUser onlineUser = this.onlineUserMap.get(openId);
+        if(onlineUser==null){
+            return new OnlineUser(false);
+        }
         return onlineUser;
     }
 

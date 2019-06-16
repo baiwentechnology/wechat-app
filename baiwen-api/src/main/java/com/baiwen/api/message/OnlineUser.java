@@ -14,5 +14,12 @@ public class OnlineUser {
     private int waterDrop;
     private int gold;
     private int itemCount;
+    private boolean onLine;
 
+    public OnlineUser(boolean onLine) {
+        this.onLine = onLine;
+    }
+
+    public OnlineUser() {
+    }
 }
