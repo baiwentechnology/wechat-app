@@ -5,8 +5,28 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.baiwen</groupId>
-    <artifactId>wechat-app</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>wechat-app-parent</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+    <parent>
+        <groupId>com.aisafer</groupId>
+        <artifactId>aisafer-super-parent</artifactId>
+        <version>1.0.16.RC</version>
+    </parent>
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.12</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.8.2</version>
+        </dependency>
+    </dependencies>
+
 
     <modules>
         <module>baiwen-api</module>
