@@ -11,4 +11,6 @@ public class User {
     private int waterDrop;
     private int gold;
     private int itemCount;
+
+    private String musicSwitch;
 }
