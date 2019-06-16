@@ -45,7 +45,8 @@ public class SignServiceImpl implements IsignService {
             jsonObject.put("success",true);
             jsonObject.put("totalDate",signByUserId.size());
 //            获得随机数量的金币或者是水滴
-            jsonObject.put("reward",1);
+            jsonObject.put("rewardType",1);
+            jsonObject.put("rewordCount",1);
         }catch (Exception e){
             e.printStackTrace();
             jsonObject.put("success",false);
