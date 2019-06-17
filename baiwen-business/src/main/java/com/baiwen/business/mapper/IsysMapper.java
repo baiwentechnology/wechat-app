@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 public interface IsysMapper {
     /**
      * 根据系统的配置id 查找系统的配置的值
-     * @param sysId
+     * @param configType
      * @return
      */
     SysConfig getSysConfigById(@Param("configType") int configType);

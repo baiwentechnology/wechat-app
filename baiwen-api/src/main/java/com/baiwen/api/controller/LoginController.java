@@ -27,6 +27,7 @@ import java.util.Map;
 @Controller
 @Slf4j
 @Api(description = "登录主接口")
+@ResponseBody
 public class LoginController extends BaseController{
     //小程序appId
     private static final String WX_APPID = "wx6d4786908679cfe6";
@@ -41,7 +42,6 @@ public class LoginController extends BaseController{
     private IUserConfigService userConfigService;
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    @ResponseBody
     @ApiOperation(value = "用户登录接口" ,  notes="传入登录时js获取到的code，获取openId，去数据库里面查，如果存在则返回用户信息，如果不存在新增用户，返回初始化信息,并把openId放入session中")
     public String login(@RequestBody Map params){
         String code = (String) params.get("code");

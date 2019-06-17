@@ -25,7 +25,7 @@ public class SignController extends BaseController{
     @Autowired
     private IsignService isignService;
 
-    @ApiOperation(value = "获得用户所有的签到日期以及是否需要签到" ,  notes="传入用户id，返回total为签到总数，sign 为false为需要签到，true为不需要签到")
+    @ApiOperation(value = "获得用户所有的签到日期以及是否需要签到" ,  notes="传入openId，返回total为签到总数，sign 为false为需要签到，true为不需要签到")
     @RequestMapping(value = "/getAllSign",method = RequestMethod.POST)
     public String getAllSign(@RequestBody Map map){
         OnlineUser onlineUser = this.getOnlineUser(map.get("openId").toString());

@@ -20,6 +20,7 @@ import java.util.Map;
 @Slf4j
 @Api(description = "用户设置主接口")
 @RequestMapping(value = "userConfig")
+@ResponseBody
 public class UserConfigController extends BaseController{
 
     @Autowired
@@ -27,7 +28,6 @@ public class UserConfigController extends BaseController{
 
     @ApiOperation(value = "设置用户配置信息" ,  notes="传入openId，configType，configValue，configType为参数设置类型，音乐开关为musicSwitch，configValue为参数值，0表示关，1表示开")
     @RequestMapping(value = "setUserConfig",method = RequestMethod.POST)
-    @ResponseBody
     public String setUserConfig(@RequestBody Map params){
         try {
             String openId = params.get("openId").toString();

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baiwen.business.mapper.IUserMissionMapper">
+    <resultMap id="BaseResultMap" type="com.baiwen.business.model.UserMission">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <id column="user_id" jdbcType="BIGINT" property="userId"/>
+        <id column="mission_id" jdbcType="BIGINT" property="missionId"/>
+        <id column="day_str" jdbcType="VARCHAR" property="dayStr"/>
+    </resultMap>
+
+    <select id="getUserMissionList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select id,user_id,mission_id,day_str
+        from user_mission where 1=1
+        <if test="userId != null">
+            and user_id = #{userId}
+        </if>
+        <if test="dayStr != null and dayStr != ''">
+            and day_str = #{dayStr}
+        </if>
+        <if test="missionIds != null">
+            and mission_id in
+            <foreach collection="missionIds" item="mId" separator="," open="(" close=")">
+                #{mId}
+            </foreach>
+        </if>
+    </select>
+</mapper>
