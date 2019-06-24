@@ -6,6 +6,7 @@ import com.baiwen.business.model.UserConfig;
 import com.baiwen.business.service.IUserConfigService;
 import com.baiwen.business.service.IUserService;
 import com.baiwen.common.util.JsonUtil;
+import com.baiwen.common.util.MapUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -30,9 +31,10 @@ import java.util.Map;
 @ResponseBody
 public class LoginController extends BaseController{
     //小程序appId
-    private static final String WX_APPID = "wx6d4786908679cfe6";
-
+    //private static final String WX_APPID = "wx6d4786908679cfe6";
+    private static final String WX_APPID = "wxc3fe7a5234f6138e";
     //小程序密钥
+    //private static final String WX_APPSERCET = "eb2fd75978e8767c0a59e990fa7afcd5";
     private static final String WX_APPSERCET = "eb2fd75978e8767c0a59e990fa7afcd5";
 
     @Autowired
@@ -45,6 +47,7 @@ public class LoginController extends BaseController{
     @ApiOperation(value = "用户登录接口" ,  notes="传入登录时js获取到的code，获取openId，去数据库里面查，如果存在则返回用户信息，如果不存在新增用户，返回初始化信息,并把openId放入session中")
     public String login(@RequestBody Map params){
         String code = (String) params.get("code");
+        log.info(code);
         //微信的登录接口
         String url = "https://api.weixin.qq.com/sns/jscode2session?appid="+WX_APPID+
                 "&secret="+WX_APPSERCET+"&js_code="+ code +"&grant_type=authorization_code";
@@ -56,6 +59,7 @@ public class LoginController extends BaseController{
             if(responseEntity != null && responseEntity.getStatusCode() == HttpStatus.OK){
                 String sessionData = responseEntity.getBody();
                 JSONObject json = JsonUtil.getJSONFromString(sessionData);
+                log.info(json.toJSONString());
                 //判断是否请求出错
                 if(json.containsKey("errcode")){
                     return setResult(false, 2000, "登录出错", null);
@@ -70,7 +74,8 @@ public class LoginController extends BaseController{
                     user.setGold(0);
                     user.setWaterDrop(0);
                     user.setItemCount(0);
-                    userService.addUser(user);
+                    user.setTreeWater(0);
+                    userService.addOrUpdateUser(user);
                     user.setMusicSwitch("1");
                 }else{
                     Map param = new HashMap();
@@ -86,7 +91,9 @@ public class LoginController extends BaseController{
                     }
                 }
                 putUserToSession(user);
-                return setResult(true,200,"",user);
+                Map map = (Map) MapUtils.beanToMap(user);
+                map.put("sessionKey",sessionKey);
+                return setResult(true,200,"",map);
             }else{
                 return setResult(false, 2000, "登录出错", null);
             }

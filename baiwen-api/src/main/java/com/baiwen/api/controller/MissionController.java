@@ -28,11 +28,11 @@ import java.util.*;
 @ResponseBody
 public class MissionController extends BaseController{
 
-    @Autowired
+    /*@Autowired
     private IMissionService missionService;
 
     @Autowired
-    private IUserMissionService userMissionService;
+    private IUserMissionService userMissionService;*/
 
     /*@RequestMapping(value = "/getUserMission",method = RequestMethod.POST)
     @ApiOperation(value = "获取用户的任务" ,  notes="传入openId，返回任务列表")

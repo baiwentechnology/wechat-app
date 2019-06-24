@@ -37,9 +37,9 @@ public class SignServiceImpl implements IsignService {
     public JSONObject makeSign(int userId) {
         JSONObject jsonObject=new JSONObject();
         try{
-        HashMap<String, Object> objectObjectHashMap = new HashMap<>();
-        objectObjectHashMap.put("userId",userId);
-        objectObjectHashMap.put("signDate",new DateTime().toString(DateUtils.YYYYMMDD_W));
+            HashMap<String, Object> objectObjectHashMap = new HashMap<>();
+            objectObjectHashMap.put("userId",userId);
+            objectObjectHashMap.put("signDate",new DateTime().toString(DateUtils.YYYYMMDD_W));
             List<String> signByUserId = isignMapper.getSignByUserId(userId);
             for (int i = 0; i <signByUserId.size() ; i++) {
                 if (signByUserId.get(i).equals( new DateTime().toString(DateUtils.YYYYMMDD_W))){

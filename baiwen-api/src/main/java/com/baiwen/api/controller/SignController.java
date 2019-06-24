@@ -3,6 +3,7 @@ package com.baiwen.api.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.baiwen.api.message.OnlineUser;
 import com.baiwen.business.model.User;
+import com.baiwen.business.service.IUserService;
 import com.baiwen.business.service.IsignService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,6 +25,8 @@ import java.util.Map;
 public class SignController extends BaseController{
     @Autowired
     private IsignService isignService;
+    @Autowired
+    private IUserService userService;
 
     @ApiOperation(value = "获得用户所有的签到日期以及是否需要签到" ,  notes="传入openId，返回total为签到总数，sign 为false为需要签到，true为不需要签到")
     @RequestMapping(value = "/getAllSign",method = RequestMethod.POST)
@@ -44,7 +47,7 @@ public class SignController extends BaseController{
     @RequestMapping(value = "/makeSign",method = RequestMethod.POST)
     public String makeSign(@RequestBody Map map){
         try {
-        OnlineUser onlineUser = this.getOnlineUser(map.get("openId").toString());
+            OnlineUser onlineUser = this.getOnlineUser(map.get("openId").toString());
             if(onlineUser.isOnLine()==false){
                 return setResult(false, 2001, "请登录", null);
             }
@@ -53,6 +56,13 @@ public class SignController extends BaseController{
             if("false".equals(success)){
                 return setResult(true, 200, "签到失败", jsonObject.get("message").toString());
             }
+            User user = userService.getUserByOpenId(map.get("openId").toString());
+            int after = user.getWaterDrop()+200;
+            if(after > 300){
+                after = 300;
+            }
+            user.setWaterDrop(after);
+            userService.addOrUpdateUser(user);
             return setResult(true, 200, "签到成功", jsonObject);
         }catch (Exception e){
             e.printStackTrace();

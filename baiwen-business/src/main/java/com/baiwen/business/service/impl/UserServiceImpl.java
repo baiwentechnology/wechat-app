@@ -16,11 +16,15 @@ public class UserServiceImpl implements IUserService {
     private IUserMapper userMapper;
 
     @Override
-    public void addUser(User user) {
+    public void addOrUpdateUser(User user) {
         if(user == null){
             return;
         }
-        userMapper.addUser(user);
+        if(user.getUserId() != 0){
+            userMapper.updateUser(user);
+        }else{
+            userMapper.addUser(user);
+        }
     }
 
     @Override

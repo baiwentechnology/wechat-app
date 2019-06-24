@@ -4,7 +4,7 @@ import com.baiwen.business.model.User;
 
 public interface IUserService {
 
-    void addUser(User user);
+    void addOrUpdateUser(User user);
 
     User getUserByOpenId(String openId);
 }

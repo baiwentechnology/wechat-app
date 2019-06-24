@@ -9,4 +9,6 @@ public interface IUserMapper {
     User getUserByOpenId(String openId);
 
     void addUser(User user);
+
+    void updateUser(User user);
 }

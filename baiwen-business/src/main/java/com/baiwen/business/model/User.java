@@ -13,4 +13,6 @@ public class User {
     private int itemCount;
 
     private String musicSwitch;
+
+    private int treeWater;
 }
