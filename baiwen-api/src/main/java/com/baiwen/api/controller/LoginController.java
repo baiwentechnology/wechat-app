@@ -28,14 +28,15 @@ import java.util.Map;
 @Controller
 @Slf4j
 @Api(description = "登录主接口")
-@ResponseBody
 public class LoginController extends BaseController{
     //小程序appId
     //private static final String WX_APPID = "wx6d4786908679cfe6";
-    private static final String WX_APPID = "wxc3fe7a5234f6138e";
+    //private static final String WX_APPID = "wxc3fe7a5234f6138e";
+    private static final String WX_APPID = "wx5dd367b58a0a564c";
     //小程序密钥
     //private static final String WX_APPSERCET = "49f4d90c2ca812cfa5da685d6679e5c6";
-    private static final String WX_APPSERCET = "17ea3ae8f8e037f99b0ad55b365faebf";
+    //private static final String WX_APPSERCET = "17ea3ae8f8e037f99b0ad55b365faebf";
+    private static final String WX_APPSERCET = "8cd89684f840eb9e20ec434bc9ecc8ea";
 
     @Autowired
     private IUserService userService;
@@ -43,7 +44,8 @@ public class LoginController extends BaseController{
     @Autowired
     private IUserConfigService userConfigService;
 
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    @RequestMapping(value = "/login",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
+    @ResponseBody
     @ApiOperation(value = "用户登录接口" ,  notes="传入登录时js获取到的code，获取openId，去数据库里面查，如果存在则返回用户信息，如果不存在新增用户，返回初始化信息,并把openId放入session中")
     public String login(@RequestBody Map params){
         String code = (String) params.get("code");
@@ -93,12 +95,12 @@ public class LoginController extends BaseController{
                 putUserToSession(user);
                 Map map = (Map) MapUtils.beanToMap(user);
                 map.put("sessionKey",sessionKey);
-                return setResult(true,200,"",map);
+                return setResult(true,200,"成功",map);
             }else{
                 return setResult(false, 2000, "登录出错", null);
             }
         }catch (Exception e){
-            e.printStackTrace();
+            log.error(e.getMessage(),e);
             return setResult(false,2000,e.getMessage(),null);
         }
     }
