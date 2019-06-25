@@ -20,7 +20,7 @@
     </select>
 
     <insert id="addUser" parameterType="com.baiwen.business.model.User">
-        insert into user (openId,mobile,login_last_date,login_count,updateTime,create_time,user_name,water_drop,gold,item_count,tree_water)
+        insert into user (openId,mobile,login_last_time,login_count,updateTime,create_time,user_name,water_drop,gold,item_count,tree_water)
         VALUES (#{openId},#{mobile},now(),1,now(),now(),#{userName},#{waterDrop},#{gold},#{itemCount},#{treeWater})
     </insert>
 

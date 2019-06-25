@@ -34,8 +34,8 @@ public class LoginController extends BaseController{
     //private static final String WX_APPID = "wx6d4786908679cfe6";
     private static final String WX_APPID = "wxc3fe7a5234f6138e";
     //小程序密钥
-    //private static final String WX_APPSERCET = "eb2fd75978e8767c0a59e990fa7afcd5";
-    private static final String WX_APPSERCET = "eb2fd75978e8767c0a59e990fa7afcd5";
+    //private static final String WX_APPSERCET = "49f4d90c2ca812cfa5da685d6679e5c6";
+    private static final String WX_APPSERCET = "17ea3ae8f8e037f99b0ad55b365faebf";
 
     @Autowired
     private IUserService userService;
