@@ -31,12 +31,12 @@ import java.util.Map;
 public class LoginController extends BaseController{
     //小程序appId
     //private static final String WX_APPID = "wx6d4786908679cfe6";
-    //private static final String WX_APPID = "wxc3fe7a5234f6138e";
-    private static final String WX_APPID = "wx5dd367b58a0a564c";
+    private static final String WX_APPID = "wxc3fe7a5234f6138e";
+    //private static final String WX_APPID = "wx5dd367b58a0a564c";
     //小程序密钥
     //private static final String WX_APPSERCET = "49f4d90c2ca812cfa5da685d6679e5c6";
-    //private static final String WX_APPSERCET = "17ea3ae8f8e037f99b0ad55b365faebf";
-    private static final String WX_APPSERCET = "8cd89684f840eb9e20ec434bc9ecc8ea";
+    private static final String WX_APPSERCET = "17ea3ae8f8e037f99b0ad55b365faebf";
+    //private static final String WX_APPSERCET = "8cd89684f840eb9e20ec434bc9ecc8ea";
 
     @Autowired
     private IUserService userService;

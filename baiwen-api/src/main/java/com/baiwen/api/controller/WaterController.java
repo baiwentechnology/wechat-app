@@ -34,7 +34,7 @@ public class WaterController extends BaseController{
     @Autowired
     private IDayDropService dayDropService;
 
-    @ApiOperation(value = "给树浇水" ,  notes="传入openId")
+    @ApiOperation(value = "给树浇水" ,  notes="传入openId,返回gapCount表示还差几次才能点金币，canGetGold是表示能否点击树获取金币")
     @RequestMapping(value = "setTreeWater",method = RequestMethod.POST)
     public String setTreeWater(@RequestBody Map params){
         try {
@@ -86,14 +86,22 @@ public class WaterController extends BaseController{
             user.setWaterDrop(waterDrop);
             userService.addOrUpdateUser(user);
             dayDropService.addOrUpdate(dayDrop);
-            return setResult(true,200,"",null);
+            Map<String,Object> result = new HashMap<>();
+            int gapCount = (100 - treeWater) / 20;
+            boolean canGetGold = false;
+            if(gapCount == 0){
+                canGetGold = true;
+            }
+            result.put("gapCount",gapCount);
+            result.put("canGetGold",canGetGold);
+            return setResult(true,200,"成功",result);
         }catch (Exception e){
             e.printStackTrace();
             return setResult(false,2000,e.getMessage(),null);
         }
     }
 
-    @ApiOperation(value = "树的水满100则兑换成金币" ,  notes="传入openId")
+    @ApiOperation(value = "树的水满100则兑换成金币" ,  notes="传入openId,成功的话后台会直接把树的水量清除，加上3个金币,如果没满次数，则返回失败")
     @RequestMapping(value = "changeWaterToGold",method = RequestMethod.POST)
     public String changeWaterToGold(@RequestBody Map params){
         try {
@@ -106,12 +114,14 @@ public class WaterController extends BaseController{
             int treeWater = user.getTreeWater();
             if(treeWater == 100){
                 treeWater = 0;
+            }else{
+                return setResult(false, 2000, "还不能兑换成金币", null);
             }
             user.setTreeWater(treeWater);
             int gold = user.getGold();
             user.setGold(gold+3);
             userService.addOrUpdateUser(user);
-            return setResult(true,200,"",null);
+            return setResult(true,200,"成功",null);
         }catch (Exception e){
             e.printStackTrace();
             return setResult(false,2000,e.getMessage(),null);
