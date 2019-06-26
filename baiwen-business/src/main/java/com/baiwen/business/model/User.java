@@ -15,4 +15,8 @@ public class User {
     private String musicSwitch;
 
     private int treeWater;
+
+    private int userType;
+    //是否授权
+    private boolean isAutho;
 }

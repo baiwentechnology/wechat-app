@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baiwen.business.mapper.IGoodsMapper">
+    <resultMap id="BaseResultMap" type="com.baiwen.business.model.Goods">
+        <id column="id" jdbcType="INTEGER" property="userId"/>
+        <id column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
+        <id column="goods_category" jdbcType="VARCHAR" property="goodsCategory"/>
+        <id column="url" jdbcType="VARCHAR" property="url"/>
+        <id column="stock" jdbcType="INTEGER" property="stock"/>
+        <id column="price" jdbcType="INTEGER" property="price"/>
+        <id column="business_id" jdbcType="INTEGER" property="businessId"/>
+        <id column="deleted" jdbcType="BIT" property="deleted"/>
+    </resultMap>
+    <sql id="Base_Select_Sql">
+        id,goods_name,goods_category,url,stock,price,business_id,deleted
+    </sql>
+
+    <select id="getGoodsList" resultMap="BaseResultMap">
+        select <include refid="Base_Select_Sql" />
+        from goods where deleted = 0
+    </select>
+
+
+</mapper>

@@ -1,0 +1,34 @@
+package com.baiwen.business.Enum;
+
+/**
+ * 用户类型
+ */
+public enum UserType {
+
+    COMMON(0,"一般用户"),
+    BUSINESS(1,"商家");
+
+    private int code;
+    private String name;
+
+    UserType(int code,String name){
+        this.code = code;
+        this.name = name;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}

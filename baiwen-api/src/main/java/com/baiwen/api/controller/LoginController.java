@@ -1,12 +1,14 @@
 package com.baiwen.api.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baiwen.business.Enum.UserType;
 import com.baiwen.business.model.User;
 import com.baiwen.business.model.UserConfig;
 import com.baiwen.business.service.IUserConfigService;
 import com.baiwen.business.service.IUserService;
 import com.baiwen.common.util.JsonUtil;
 import com.baiwen.common.util.MapUtils;
+import com.baiwen.common.util.StringUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +30,7 @@ import java.util.Map;
 @Controller
 @Slf4j
 @Api(description = "登录主接口")
+@ResponseBody
 public class LoginController extends BaseController{
     //小程序appId
     //private static final String WX_APPID = "wx6d4786908679cfe6";
@@ -45,7 +48,6 @@ public class LoginController extends BaseController{
     private IUserConfigService userConfigService;
 
     @RequestMapping(value = "/login",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
-    @ResponseBody
     @ApiOperation(value = "用户登录接口" ,  notes="传入登录时js获取到的code，获取openId，去数据库里面查，如果存在则返回用户信息，如果不存在新增用户，返回初始化信息,并把openId放入session中")
     public String login(@RequestBody Map params){
         String code = (String) params.get("code");
@@ -77,6 +79,8 @@ public class LoginController extends BaseController{
                     user.setWaterDrop(0);
                     user.setItemCount(0);
                     user.setTreeWater(0);
+                    user.setUserType(UserType.COMMON.getCode());
+                    user.setAutho(false);
                     userService.addOrUpdateUser(user);
                     user.setMusicSwitch("1");
                 }else{
@@ -99,6 +103,27 @@ public class LoginController extends BaseController{
             }else{
                 return setResult(false, 2000, "登录出错", null);
             }
+        }catch (Exception e){
+            log.error(e.getMessage(),e);
+            return setResult(false,2000,e.getMessage(),null);
+        }
+    }
+
+    @RequestMapping(value = "/doAutho",method = RequestMethod.POST)
+    @ApiOperation(value = "用户确认授权接口" ,  notes="传入登录时返回的openId，获取用户，修改用户的授权状态")
+    public String doAutho(@RequestBody Map params){
+        try {
+            String openId = (String) params.get("openId");
+            if(StringUtils.isEmpty(openId)){
+                return setResult(false,2000,"参数错误",null);
+            }
+            User user = userService.getUserByOpenId(openId);
+            if(user == null){
+                return setResult(false,2000,"用户不存在",null);
+            }
+            user.setAutho(true);
+            userService.addOrUpdateUser(user);
+            return setResult(true,200,"授权成功",null);
         }catch (Exception e){
             log.error(e.getMessage(),e);
             return setResult(false,2000,e.getMessage(),null);

@@ -10,9 +10,11 @@
         <id column="gold" jdbcType="INTEGER" property="gold"/>
         <id column="item_count" jdbcType="INTEGER" property="itemCount"/>
         <id column="tree_water" jdbcType="INTEGER" property="treeWater"/>
+        <id column="user_type" jdbcType="INTEGER" property="userType"/>
+        <id column="is_autho" jdbcType="BIT" property="isAutho"/>
     </resultMap>
     <sql id="Base_Select_Sql">
-        id,openId,mobile,user_name,water_drop,gold,item_count,tree_water
+        id,openId,mobile,user_name,water_drop,gold,item_count,tree_water,user_type,is_autho
     </sql>
     <select id="getUserByOpenId" parameterType="java.lang.String" resultMap="BaseResultMap">
         select <include refid="Base_Select_Sql" />
