@@ -22,12 +22,12 @@
     </select>
 
     <insert id="addUser" parameterType="com.baiwen.business.model.User">
-        insert into user (openId,mobile,login_last_time,login_count,updateTime,create_time,user_name,water_drop,gold,item_count,tree_water)
-        VALUES (#{openId},#{mobile},now(),1,now(),now(),#{userName},#{waterDrop},#{gold},#{itemCount},#{treeWater})
+        insert into user (openId,mobile,login_last_time,login_count,updateTime,create_time,user_name,water_drop,gold,item_count,tree_water,user_type,is_autho)
+        VALUES (#{openId},#{mobile},now(),1,now(),now(),#{userName},#{waterDrop},#{gold},#{itemCount},#{treeWater},#{userType},#{isAutho})
     </insert>
 
     <update id="updateUser" parameterType="com.baiwen.business.model.User">
-        update user set water_drop = #{waterDrop},gold=#{gold},item_count = #{itemCount},tree_water=#{treeWater}
+        update user set water_drop = #{waterDrop},gold=#{gold},item_count = #{itemCount},tree_water=#{treeWater},user_type=#{userType},is_autho=#{isAutho}
         where id=#{userId}
     </update>
 </mapper>

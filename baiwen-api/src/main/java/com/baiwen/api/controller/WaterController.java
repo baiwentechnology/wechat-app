@@ -1,5 +1,6 @@
 package com.baiwen.api.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baiwen.api.message.OnlineUser;
 import com.baiwen.business.model.DayDrop;
 import com.baiwen.business.model.User;
@@ -79,6 +80,11 @@ public class WaterController extends BaseController{
                 treeWater = 100;
             }
             user.setTreeWater(treeWater);
+            Map<String,Object> result = new HashMap<>();
+            if(user.getWaterDrop() <= 0){
+                result.put("isEmpty",true);
+                return setResult(false,2000,"水壶已空，不能再浇水",result);
+            }
             int waterDrop = user.getWaterDrop()-20;
             if(waterDrop < 0){
                 waterDrop = 0;
@@ -86,7 +92,7 @@ public class WaterController extends BaseController{
             user.setWaterDrop(waterDrop);
             userService.addOrUpdateUser(user);
             dayDropService.addOrUpdate(dayDrop);
-            Map<String,Object> result = new HashMap<>();
+
             int gapCount = (100 - treeWater) / 20;
             boolean canGetGold = false;
             if(gapCount == 0){
@@ -94,6 +100,7 @@ public class WaterController extends BaseController{
             }
             result.put("gapCount",gapCount);
             result.put("canGetGold",canGetGold);
+            result.put("isEmpty",false);
             return setResult(true,200,"成功",result);
         }catch (Exception e){
             e.printStackTrace();
