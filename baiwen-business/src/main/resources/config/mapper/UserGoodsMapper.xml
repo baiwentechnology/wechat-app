@@ -4,9 +4,28 @@
     <resultMap id="BaseResultMap" type="com.baiwen.business.model.UserGoods">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <id column="user_id" jdbcType="INTEGER" property="userId"/>
-        <id column="goods_id" jdbcType="INTEGER" property="goodsId"/>
-        <id column="status" jdbcType="INTEGER" property="status"/>
         <id column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <id column="goods_id" jdbcType="INTEGER" property="goodsId"/>
+        <id column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
+        <id column="status" jdbcType="INTEGER" property="statusCode"/>
+        <id column="business_id" jdbcType="INTEGER" property="businessId"/>
+        <id column="create_time" jdbcType="DATE" property="createTime"/>
+        <id column="update_time" jdbcType="DATE" property="updateTime"/>
+        <id column="expiration_time" jdbcType="DATE" property="expirationTime"/>
+        <id column="deleted" jdbcType="BIT" property="deleted"/>
     </resultMap>
+    <sql id="Base_Result_Column">
+        id,user_id,user_name,goods_id,goods_name,status,business_id,create_time,update_time,expiration_time,deleted
+    </sql>
 
+    <select id="getUserGoodsList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select ug.id,ug.user_id,ug.user_name,ug.goods_id,ug.goods_name,ug.status,ug.business_id,ug.create_time,ug.update_time,ug.expiration_time,ug.deleted,g.describe,g.url
+        from user_goods ug
+        left join goods g on g.id = ug.goods_id
+        where ug.deleted = 0
+        <if test="userId != null">
+            and ug.user_id = #{userId}
+        </if>
+        order by ug.create_time desc
+    </select>
 </mapper>

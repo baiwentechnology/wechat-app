@@ -103,7 +103,7 @@ public class WaterController extends BaseController{
             result.put("isEmpty",false);
             return setResult(true,200,"成功",result);
         }catch (Exception e){
-            e.printStackTrace();
+            log.error(e.getMessage(),e);
             return setResult(false,2000,e.getMessage(),null);
         }
     }
@@ -130,7 +130,7 @@ public class WaterController extends BaseController{
             userService.addOrUpdateUser(user);
             return setResult(true,200,"成功",null);
         }catch (Exception e){
-            e.printStackTrace();
+            log.error(e.getMessage(),e);
             return setResult(false,2000,e.getMessage(),null);
         }
     }

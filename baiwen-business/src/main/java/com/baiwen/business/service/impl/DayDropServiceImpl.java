@@ -3,12 +3,14 @@ package com.baiwen.business.service.impl;
 import com.baiwen.business.mapper.IDayDropMapper;
 import com.baiwen.business.model.DayDrop;
 import com.baiwen.business.service.IDayDropService;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
 @Service
+@Data
 public class DayDropServiceImpl implements IDayDropService {
 
     @Autowired

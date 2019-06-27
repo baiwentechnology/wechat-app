@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.baiwen.business.mapper.IGoodsMapper">
     <resultMap id="BaseResultMap" type="com.baiwen.business.model.Goods">
-        <id column="id" jdbcType="INTEGER" property="userId"/>
+        <id column="id" jdbcType="INTEGER" property="id"/>
         <id column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
         <id column="goods_category" jdbcType="VARCHAR" property="goodsCategory"/>
         <id column="url" jdbcType="VARCHAR" property="url"/>
@@ -10,15 +10,19 @@
         <id column="price" jdbcType="INTEGER" property="price"/>
         <id column="business_id" jdbcType="INTEGER" property="businessId"/>
         <id column="deleted" jdbcType="BIT" property="deleted"/>
+        <id column="create_time" jdbcType="DATE" property="createTime"/>
+        <id column="update_time" jdbcType="DATE" property="updateTime"/>
+        <id column="expiration_day" jdbcType="INTEGER" property="expirationDay"/>
+        <id column="describe" jdbcType="VARCHAR" property="describe"/>
     </resultMap>
     <sql id="Base_Select_Sql">
-        id,goods_name,goods_category,url,stock,price,business_id,deleted
+        id,goods_name,goods_category,url,stock,price,business_id,deleted,create_time,update_time,
+        expiration_day,`describe`
     </sql>
 
-    <select id="getGoodsList" resultMap="BaseResultMap">
+    <select id="getGoodsList" parameterType="java.util.Map" resultMap="BaseResultMap">
         select <include refid="Base_Select_Sql" />
         from goods where deleted = 0
     </select>
-
 
 </mapper>

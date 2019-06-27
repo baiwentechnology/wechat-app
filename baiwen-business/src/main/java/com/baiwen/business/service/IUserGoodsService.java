@@ -1,14 +1,11 @@
-package com.baiwen.business.mapper;
+package com.baiwen.business.service;
 
 import com.baiwen.business.model.UserGoods;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
 
-@Repository
-public interface IUserGoodsMapper {
+public interface IUserGoodsService {
 
     List<UserGoods> getUserGoodsList(Map params);
-
 }

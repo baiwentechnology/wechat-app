@@ -1,9 +1,9 @@
 package com.baiwen.api.controller;
 
 import com.baiwen.api.message.OnlineUser;
-import com.baiwen.business.model.Goods;
 import com.baiwen.business.model.User;
-import com.baiwen.business.service.IGoodsService;
+import com.baiwen.business.model.UserGoods;
+import com.baiwen.business.service.IUserGoodsService;
 import com.baiwen.business.service.IUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,33 +21,38 @@ import java.util.Map;
 
 @Controller
 @Slf4j
-@Api(description = "商品接口")
-@RequestMapping(value = "goods")
+@Api(description = "用户仓库接口")
+@RequestMapping(value = "userGoods")
 @ResponseBody
-public class GoodsController extends BaseController{
+public class UserGoodsController extends BaseController{
 
     @Autowired
-    private IGoodsService goodsService;
+    private IUserGoodsService userGoodsService;
 
     @Autowired
     private IUserService userService;
 
-    @RequestMapping(value = "getGoodsList",method = RequestMethod.POST)
-    @ApiOperation(value = "获得所有商品列表" ,  notes="传入openId")
-    public String getGoodsList(@RequestBody Map map){
+    @RequestMapping(value = "getUserGoodsList",method =  RequestMethod.POST)
+    @ApiOperation(value = "获取用户仓库列表" ,  notes="传入openId")
+    public String getUserGoodsList(@RequestBody Map params){
         try {
-            String openId = map.get("openId").toString();
+            String openId = params.get("openId").toString();
             User user = userService.getUserByOpenId(openId);
             if (user == null) {
                 return setResult(false, 2000, "用户不存在", null);
             }
+            int userId = user.getUserId();
             Map param = new HashMap();
-            List<Goods> goodsList = goodsService.getGoodsList(param);
-            List<Map<String, Object>> list = convertList(goodsList);
-            return setResult(true,200,"成功",list);
+            param.put("userId",userId);
+            List<UserGoods> userGoodsList = userGoodsService.getUserGoodsList(param);
+            if(userGoodsList == null || userGoodsList.size() == 0){
+                return setResult(false,200,"暂无数据",null);
+            }
+            List<Map<String, Object>> mapList = convertList(userGoodsList);
+            return setResult(true,200,"成功",mapList);
         }catch (Exception e){
             log.error(e.getMessage(),e);
-            return setResult(false,2001,e.getMessage(),null);
+            return setResult(false,2000,e.getMessage(),null);
         }
     }
 }

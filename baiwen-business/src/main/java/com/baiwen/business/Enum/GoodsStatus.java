@@ -32,4 +32,15 @@ public enum GoodsStatus {
     public void setName(String name) {
         this.name = name;
     }
+
+    public static String valueOfName(int code){
+        GoodsStatus[] goodsStatuses = values();
+        String returnName = "";
+        for(GoodsStatus status : goodsStatuses){
+            if(code == status.code){
+                returnName =  status.getName();
+            }
+        }
+        return returnName;
+    }
 }
