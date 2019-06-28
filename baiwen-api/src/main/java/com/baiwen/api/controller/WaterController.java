@@ -49,6 +49,7 @@ public class WaterController extends BaseController{
             Map param = new HashMap();
             param.put("userId",userId);
             String dayStr = DateUtils.convertToString(new Date(), "yyyy-MM-dd");
+            param.put("dayStr",dayStr);
             DayDrop dayDrop = dayDropService.getUserDayDrop(param);
             if(dayDrop == null){
                 dayDrop = new DayDrop();
@@ -61,13 +62,13 @@ public class WaterController extends BaseController{
             int pmCount = dayDrop.getPmCount();
             GregorianCalendar ca = new GregorianCalendar();
             if(ca.get(GregorianCalendar.AM_PM)==0){
-                if(amCount >= 5){
+                if(amCount >= 1){
                     return setResult(false,2000,"上午浇水次数已满",null);
                 }else{
                     amCount++;
                 }
             }else{
-                if(pmCount >= 5){
+                if(pmCount >= 1){
                     return setResult(false,2000,"下午浇水次数已满",null);
                 }else{
                     pmCount++;
@@ -75,7 +76,8 @@ public class WaterController extends BaseController{
             }
             dayDrop.setAmCount(amCount);
             dayDrop.setPmCount(pmCount);
-            int treeWater = user.getTreeWater()+20;
+            dayDropService.addOrUpdate(dayDrop);
+            int treeWater = user.getTreeWater()+100;
             if(treeWater >100){
                 treeWater = 100;
             }
@@ -85,15 +87,14 @@ public class WaterController extends BaseController{
                 result.put("isEmpty",true);
                 return setResult(false,2000,"水壶已空，不能再浇水",result);
             }
-            int waterDrop = user.getWaterDrop()-20;
+            int waterDrop = user.getWaterDrop()-100;
             if(waterDrop < 0){
                 waterDrop = 0;
             }
             user.setWaterDrop(waterDrop);
             userService.addOrUpdateUser(user);
-            dayDropService.addOrUpdate(dayDrop);
 
-            int gapCount = (100 - treeWater) / 20;
+            int gapCount = (100 - treeWater) / 100;
             boolean canGetGold = false;
             if(gapCount == 0){
                 canGetGold = true;

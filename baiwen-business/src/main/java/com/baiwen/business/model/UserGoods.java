@@ -26,7 +26,7 @@ public class UserGoods {
 
     private String statusName;
 
-    private void setStatusCode(int code){
+    public void setStatusCode(int code){
         this.statusCode = code;
         this.statusName = GoodsStatus.valueOfName(code);
     }

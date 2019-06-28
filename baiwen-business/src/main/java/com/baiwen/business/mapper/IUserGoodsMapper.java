@@ -11,4 +11,6 @@ public interface IUserGoodsMapper {
 
     List<UserGoods> getUserGoodsList(Map params);
 
+    void addUserGoods(UserGoods userGoods);
+
 }

@@ -19,7 +19,8 @@
     </sql>
 
     <select id="getUserGoodsList" parameterType="java.util.Map" resultMap="BaseResultMap">
-        select ug.id,ug.user_id,ug.user_name,ug.goods_id,ug.goods_name,ug.status,ug.business_id,ug.create_time,ug.update_time,ug.expiration_time,ug.deleted,g.describe,g.url
+        select ug.id,ug.user_id,ug.user_name,ug.goods_id,ug.goods_name,ug.status,ug.business_id,ug.create_time,ug.update_time,
+        ug.expiration_time,ug.deleted,g.describe,g.url
         from user_goods ug
         left join goods g on g.id = ug.goods_id
         where ug.deleted = 0
@@ -28,4 +29,9 @@
         </if>
         order by ug.create_time desc
     </select>
+
+    <insert id="addUserGoods" parameterType="com.baiwen.business.model.UserGoods">
+        insert into user_goods (user_id,user_name,goods_id,goods_name,status,business_id,create_time,update_time,expiration_time,deleted)
+        value (#{userId},#{userName},#{goodsId},#{goodsName},#{status},#{businessId},#{createTime},#{updateTime},#{expirationTime},#{deleted})
+    </insert>
 </mapper>

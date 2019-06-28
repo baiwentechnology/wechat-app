@@ -49,7 +49,11 @@ public class UserGoodsController extends BaseController{
                 return setResult(false,200,"暂无数据",null);
             }
             List<Map<String, Object>> mapList = convertList(userGoodsList);
-            return setResult(true,200,"成功",mapList);
+            Map result = new HashMap();
+            result.put("gold",user.getGold());
+            result.put("waterDrop",user.getWaterDrop());
+            result.put("goodsList",mapList);
+            return setResult(true,200,"成功",result);
         }catch (Exception e){
             log.error(e.getMessage(),e);
             return setResult(false,2000,e.getMessage(),null);
