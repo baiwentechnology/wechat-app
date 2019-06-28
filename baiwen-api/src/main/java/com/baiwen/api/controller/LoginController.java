@@ -83,6 +83,7 @@ public class LoginController extends BaseController{
                     user.setAutho(false);
                     userService.addOrUpdateUser(user);
                     user.setMusicSwitch("1");
+                    user.setTreeIsReap(false);
                 }else{
                     Map param = new HashMap();
                     param.put("userId",user.getUserId());
@@ -94,6 +95,11 @@ public class LoginController extends BaseController{
                         user.setMusicSwitch(configValue);
                     }else{
                         user.setMusicSwitch("1");
+                    }
+                    if(user.getTreeWater() == 100){
+                        user.setTreeIsReap(true);
+                    }else{
+                        user.setTreeIsReap(false);
                     }
                 }
                 putUserToSession(user);

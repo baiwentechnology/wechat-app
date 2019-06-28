@@ -31,4 +31,15 @@ public enum UserType {
     public void setName(String name) {
         this.name = name;
     }
+
+    public static String valueOfName(int code){
+        UserType[] types = values();
+        String returnName = "";
+        for(UserType type : types){
+            if(code == type.code){
+                returnName =  type.getName();
+            }
+        }
+        return returnName;
+    }
 }

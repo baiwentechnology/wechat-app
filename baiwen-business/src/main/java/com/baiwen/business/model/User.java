@@ -19,4 +19,6 @@ public class User {
     private int userType;
     //是否授权
     private boolean isAutho;
+
+    private boolean treeIsReap;
 }

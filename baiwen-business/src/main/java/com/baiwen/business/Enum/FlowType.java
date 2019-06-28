@@ -1,19 +1,16 @@
 package com.baiwen.business.Enum;
 
 /**
- * 用户商品使用状态
+ * 流水类型
  */
-public enum GoodsStatus {
-
-    NOTUSED(0,"未使用"),
-    INUSED(1,"待确认"),
-    USED(2,"已使用"),
-    EXPIRE(3,"已过期");
+public enum FlowType {
+    USEGOODS(0,"使用商品"),
+    COMFIRM(1,"确认使用");
 
     private int code;
     private String name;
 
-    GoodsStatus(int code,String name){
+    FlowType(int code,String name){
         this.code = code;
         this.name = name;
     }
@@ -35,11 +32,11 @@ public enum GoodsStatus {
     }
 
     public static String valueOfName(int code){
-        GoodsStatus[] goodsStatuses = values();
+        FlowType[] types = values();
         String returnName = "";
-        for(GoodsStatus status : goodsStatuses){
-            if(code == status.code){
-                returnName =  status.getName();
+        for(FlowType type : types){
+            if(code == type.code){
+                returnName =  type.getName();
             }
         }
         return returnName;

@@ -12,5 +12,9 @@ public interface IGoodsMapper {
 
     List<Goods> getGoodsList(Map params);
 
-    Goods getGoods(@Param("goodsId")Long goodsId);
+    Goods getGoods(@Param("goodsId")Integer goodsId);
+
+    void updateGoods(Goods goods);
+
+    void addGoodsStock(@Param("goodsId")Integer goodsId);
 }

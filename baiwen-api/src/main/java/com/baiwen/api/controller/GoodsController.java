@@ -68,21 +68,26 @@ public class GoodsController extends BaseController{
             if (user == null) {
                 return setResult(false, 2000, "用户不存在", null);
             }
-            Long goodsId = (Long) map.get("goodsId");
+            Integer goodsId = (Integer) map.get("goodsId");
             Goods goods = goodsService.getGoods(goodsId);
             if(goods == null){
                 return setResult(false,2000,"商品不存在或已失效",null);
             }
             int gold = user.getGold();
             int price = goods.getPrice();
+            int stock = goods.getStock();
             if(gold < price){
                 return setResult(false,2000,"金币不足",null);
             }
+            if(stock == 0){
+                return setResult(false,2000,"商品库存不足，无法兑换",null);
+            }
             gold = gold - price;
             user.setGold(gold);
+            goods.setStock(stock - 1);
             UserGoods userGoods = new UserGoods();
             convert(user, goods,userGoods);
-            goodsService.addUserGoods(user,userGoods);
+            goodsService.addUserGoods(user,goods,userGoods);
             return setResult(true,200,"成功",null);
         }catch (Exception e){
             log.error(e.getMessage(),e);

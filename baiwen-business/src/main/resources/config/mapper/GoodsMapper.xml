@@ -29,4 +29,14 @@
         select <include refid="Base_Select_Sql" />
         from goods where id =#{goodsId} and deleted = 0
     </select>
+
+    <update id="updateGoods" parameterType="com.baiwen.business.model.Goods">
+        update goods set stock = #{stock},update_time = now()
+        where id = #{id}
+    </update>
+
+    <update id="addGoodsStock" parameterType="java.lang.Integer">
+        update goods set stock = (stock+1),update_time = now()
+        where id = #{goodsId}
+    </update>
 </mapper>

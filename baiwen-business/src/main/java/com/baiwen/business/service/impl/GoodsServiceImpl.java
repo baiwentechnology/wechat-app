@@ -37,7 +37,7 @@ public class GoodsServiceImpl implements IGoodsService {
     }
 
     @Override
-    public Goods getGoods(Long goodsId) {
+    public Goods getGoods(Integer goodsId) {
         if(goodsId == null || goodsId == 0){
             return null;
         }
@@ -46,11 +46,10 @@ public class GoodsServiceImpl implements IGoodsService {
 
     @Transactional
     @Override
-    public void addUserGoods(User user, UserGoods userGoods) {
-        if(user != null){
+    public void addUserGoods(User user,Goods goods, UserGoods userGoods) {
+        if(user != null && goods != null && userGoods != null){
             userMapper.updateUser(user);
-        }
-        if(userGoods != null){
+            goodsMapper.updateGoods(goods);
             userGoodsMapper.addUserGoods(userGoods);
         }
     }

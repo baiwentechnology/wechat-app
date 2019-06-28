@@ -11,7 +11,7 @@ public interface IGoodsService {
 
     List<Goods> getGoodsList(Map params);
 
-    Goods getGoods(Long goodsId);
+    Goods getGoods(Integer goodsId);
 
-    void addUserGoods(User user, UserGoods userGoods);
+    void addUserGoods(User user, Goods goods,UserGoods userGoods);
 }
