@@ -25,7 +25,7 @@
         from goods where deleted = 0
     </select>
 
-    <select id="getGoods" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <select id="getGoods" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select <include refid="Base_Select_Sql" />
         from goods where id =#{goodsId} and deleted = 0
     </select>
