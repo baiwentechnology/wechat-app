@@ -90,6 +90,9 @@ public class MailController extends BaseController {
             if(businessId != userId){
                 return setResult(false,2000,"非商家商品，不能操作",null);
             }
+            if(userGoods.getStatusCode() != GoodsStatus.INUSED.getCode()){
+                return setResult(false,2000,"非使用中状态，不能操作",null);
+            }
             userGoods.setStatusCode(GoodsStatus.USED.getCode());
             userGoodsService.updateUserGoods(userGoods);
             //记录操作流水
