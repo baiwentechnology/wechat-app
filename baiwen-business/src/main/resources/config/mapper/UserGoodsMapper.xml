@@ -32,11 +32,11 @@
 
     <insert id="addUserGoods" parameterType="com.baiwen.business.model.UserGoods">
         insert into user_goods (user_id,user_name,goods_id,goods_name,status,business_id,create_time,update_time,expiration_time,deleted)
-        value (#{userId},#{userName},#{goodsId},#{goodsName},#{status},#{businessId},now(),now(),#{expirationTime},#{deleted})
+        value (#{userId},#{userName},#{goodsId},#{goodsName},#{statusCode},#{businessId},now(),now(),#{expirationTime},#{deleted})
     </insert>
 
     <update id="updateUserGoods" parameterType="com.baiwen.business.model.UserGoods">
-        update user_goods set status = #{status},update_time = now()
+        update user_goods set status = #{statusCode},update_time = now()
         where id = #{id}
     </update>
 

@@ -5,7 +5,7 @@ package com.baiwen.business.Enum;
  */
 public enum FlowType {
     USEGOODS(0,"使用商品"),
-    COMFIRM(1,"确认使用");
+    CONFIRM(1,"确认使用");
 
     private int code;
     private String name;

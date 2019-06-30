@@ -88,13 +88,16 @@ public class GoodsController extends BaseController{
             UserGoods userGoods = new UserGoods();
             convert(user, goods,userGoods);
             goodsService.addUserGoods(user,goods,userGoods);
-            return setResult(true,200,"成功",null);
+            Map result = new HashMap();
+            result.put("gold",gold);
+            return setResult(true,200,"成功",result);
         }catch (Exception e){
             log.error(e.getMessage(),e);
             return setResult(false,2001,"兑换失败",null);
         }
     }
 
+    //转换数据
     private void convert(User user,Goods goods,UserGoods userGoods){
         Date now = new Date();
         userGoods.setBusinessId(goods.getBusinessId());
