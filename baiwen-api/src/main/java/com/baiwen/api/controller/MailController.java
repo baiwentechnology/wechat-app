@@ -77,11 +77,11 @@ public class MailController extends BaseController {
             if (user.getUserType() != UserType.BUSINESS.getCode()) {
                 return setResult(false, 2000, "非商家用户", null);
             }
-            String userGoodsId = (String) map.get("userGoodsId");
+            Integer userGoodsId = (Integer) map.get("userGoodsId");
             if(StringUtils.isEmpty(userGoodsId)){
                 return setResult(false,2000,"参数为空",null);
             }
-            UserGoods userGoods = userGoodsService.getUserGoodsById(Integer.valueOf(userGoodsId));
+            UserGoods userGoods = userGoodsService.getUserGoodsById(userGoodsId);
             if(userGoods == null){
                 return setResult(false,2000,"数据不存在",null);
             }
