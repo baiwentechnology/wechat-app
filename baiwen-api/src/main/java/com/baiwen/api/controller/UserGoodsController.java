@@ -57,6 +57,7 @@ public class UserGoodsController extends BaseController{
             //判断是否过期
             Date now = new Date();
             List<UserGoods> updateList = new ArrayList<>();
+            List<UserGoods> resultList = new ArrayList<>();
             for(UserGoods userGoods : userGoodsList){
                 Date expirationTime = userGoods.getExpirationTime();
                 if(now.getTime() > expirationTime.getTime() && (userGoods.getStatusCode() == GoodsStatus.NOTUSED.getCode())){
@@ -64,10 +65,20 @@ public class UserGoodsController extends BaseController{
                     userGoods.setUpdateTime(now);
                     updateList.add(userGoods);
                 }
+                resultList.add(userGoods);
             }
             //更新过期商品
             userGoodsService.expreUserGoodsList(updateList);
-            List<Map<String, Object>> mapList = convertList(userGoodsList);
+            //返回
+            List<Map<String, Object>> mapList = convertList(resultList);
+            for(Map<String, Object> map : mapList){
+                String expirationTime = (String) map.get("expirationTime");
+                expirationTime = DateUtils.convertToString(DateUtils.convertToDate(expirationTime, DateUtils.YYYYMMDDHHMMSS_W_C), DateUtils.YYYYMMDD_W);
+                map.put("expirationTime",expirationTime);
+                String createTime = (String) map.get("createTime");
+                createTime = DateUtils.convertToString(DateUtils.convertToDate(createTime, DateUtils.YYYYMMDDHHMMSS_W_C), DateUtils.YYYYMMDD_W);
+                map.put("createTime",createTime);
+            }
             Map result = new HashMap();
             result.put("gold",user.getGold());
             result.put("waterDrop",user.getWaterDrop());

@@ -18,4 +18,5 @@ public class Goods {
     private Date updateTime;
     private int expirationDay;
     private String describe;
+    private String address;
 }

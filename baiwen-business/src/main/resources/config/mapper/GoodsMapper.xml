@@ -14,10 +14,11 @@
         <id column="update_time" jdbcType="DATE" property="updateTime"/>
         <id column="expiration_day" jdbcType="INTEGER" property="expirationDay"/>
         <id column="describe" jdbcType="VARCHAR" property="describe"/>
+        <id column="address" jdbcType="VARCHAR" property="address"/>
     </resultMap>
     <sql id="Base_Select_Sql">
         id,goods_name,goods_category,url,stock,price,business_id,deleted,create_time,update_time,
-        expiration_day,`describe`
+        expiration_day,`describe`,address
     </sql>
 
     <select id="getGoodsList" parameterType="java.util.Map" resultMap="BaseResultMap">
