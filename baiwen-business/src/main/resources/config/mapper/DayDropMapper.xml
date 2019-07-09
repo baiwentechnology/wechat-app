@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baiwen.business.mapper.IDayDropMapper">
+    <resultMap id="BaseResultMap" type="com.baiwen.business.model.DayDrop">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <id column="user_id" jdbcType="INTEGER" property="userId"/>
+        <id column="day_str" jdbcType="VARCHAR" property="dayStr"/>
+        <id column="am_count" jdbcType="INTEGER" property="amCount"/>
+        <id column="pm_count" jdbcType="INTEGER" property="pmCount"/>
+    </resultMap>
+    <sql id="Base_Select_Sql">
+        id,user_id,day_str,am_count,pm_count
+    </sql>
+    <select id="getUserDayDrop" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select <include refid="Base_Select_Sql"/>
+        from day_drop where user_id = #{userId} and day_str = #{dayStr}
+    </select>
+
+    <insert id="addDayDrop" parameterType="com.baiwen.business.model.DayDrop">
+        insert into day_drop (user_id,day_str,am_count,pm_count)
+        values (#{userId},#{dayStr},#{amCount},#{pmCount})
+    </insert>
+    
+    <update id="updateDayDrop" parameterType="com.baiwen.business.model.DayDrop">
+        update day_drop set am_count = #{amCount},pm_count = #{pmCount}
+        where id = #{id}
+    </update>
+</mapper>

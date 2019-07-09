@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baiwen.business.mapper.IsignMapper">
+    <resultMap id="BaseResultMap" type="com.baiwen.business.model.UserSign">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <id column="user_id" jdbcType="BIGINT" property="userId"/>
+        <id column="signDate" jdbcType="BIGINT" property="signDate"/>
+    </resultMap>
+    <insert id="addUserSign">
+        insert into user_sign  (user_id,signDate) VALUES (#{userId},#{signDate})
+    </insert>
+    <select id="getSignByUserId" resultType="java.lang.String">
+        select signDate from user_sign where user_id =#{userId}
+    </select>
+</mapper>

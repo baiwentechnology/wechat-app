@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baiwen.business.mapper.IUserMapper">
+    <resultMap id="BaseResultMap" type="com.baiwen.business.model.User">
+        <id column="id" jdbcType="BIGINT" property="userId"/>
+        <id column="openId" jdbcType="VARCHAR" property="openId"/>
+        <id column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <id column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <id column="water_drop" jdbcType="INTEGER" property="waterDrop"/>
+        <id column="gold" jdbcType="INTEGER" property="gold"/>
+        <id column="item_count" jdbcType="INTEGER" property="itemCount"/>
+        <id column="tree_water" jdbcType="INTEGER" property="treeWater"/>
+        <id column="user_type" jdbcType="INTEGER" property="userType"/>
+        <id column="is_autho" jdbcType="BIT" property="isAutho"/>
+    </resultMap>
+    <sql id="Base_Select_Sql">
+        id,openId,mobile,user_name,water_drop,gold,item_count,tree_water,user_type,is_autho
+    </sql>
+    <select id="getUserByOpenId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select <include refid="Base_Select_Sql" />
+        from user where openId =#{openId}
+    </select>
+
+    <insert id="addUser" parameterType="com.baiwen.business.model.User">
+        insert into user (openId,mobile,login_last_time,login_count,updateTime,create_time,user_name,water_drop,gold,item_count,tree_water,user_type,is_autho)
+        VALUES (#{openId},#{mobile},now(),1,now(),now(),#{userName},#{waterDrop},#{gold},#{itemCount},#{treeWater},#{userType},#{isAutho})
+    </insert>
+
+    <update id="updateUser" parameterType="com.baiwen.business.model.User">
+        update user set water_drop = #{waterDrop},gold=#{gold},item_count = #{itemCount},tree_water=#{treeWater},user_type=#{userType},is_autho=#{isAutho}
+        where id=#{userId}
+    </update>
+</mapper>

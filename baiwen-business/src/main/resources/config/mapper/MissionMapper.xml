@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baiwen.business.mapper.IMissionMapper">
+    <resultMap id="BaseResultMap" type="com.baiwen.business.model.Mission">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <id column="mission_name" jdbcType="BIGINT" property="missionName"/>
+        <id column="status" jdbcType="BIGINT" property="status"/>
+    </resultMap>
+    <select id="getMissionList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select id,mission_name,status
+        from mission where status = 1
+    </select>
+</mapper>
